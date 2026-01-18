@@ -29,7 +29,7 @@ if (!$user) {
 }
 
 /* CEK PASSWORD */
-if (!password_verify($password, $user['password'])) {
+if ($password !== $user['password']) {
     jsonResponse(["error" => "Password salah"], 401);
 }
 

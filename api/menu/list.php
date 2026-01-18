@@ -3,33 +3,23 @@ require __DIR__ . "/../../config/database.php";
 require __DIR__ . "/../../utils/response.php";
 
 /**
- * LIST ORDER BY USER
- * POST JSON:
- * {
- *   "user_id": 1
- * }
+ * GET MENU LIST
+ * URL:
+ * http://localhost/burger_apps/api/menu/list.php
  */
 
-$data = json_decode(file_get_contents("php://input"), true);
-
-if (!isset($data['user_id'])) {
-    jsonResponse(["error" => "user_id wajib"], 400);
-}
-
-$stmt = $pdo->prepare("
+$stmt = $pdo->query("
     SELECT 
         id,
-        delivery_address,
-        notes,
-        total_price,
-        status,
-        created_at
-    FROM orders
-    WHERE user_id = ?
+        name,
+        description,
+        price,
+        image_url
+    FROM menu
+    WHERE is_available = 1
     ORDER BY id DESC
 ");
 
-$stmt->execute([$data['user_id']]);
-$orders = $stmt->fetchAll();
+$menu = $stmt->fetchAll();
 
-jsonResponse($orders);
+jsonResponse($menu);
