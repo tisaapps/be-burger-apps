@@ -1,8 +1,20 @@
 <?php
-include "../../config/database.php";
+require __DIR__ . "/../../config/database.php";
+require __DIR__ . "/../../utils/response.php";
 
-$data = json_decode(file_get_contents("php://input"), true);
-$id = $data['order_id'];
+/* AMBIL ID ORDER */
+$orderId = $_GET['id'] ?? null;
 
-$conn->query("DELETE FROM orders WHERE id='$id'");
-echo json_encode(["status"=>true,"message"=>"Order deleted"]);
+if (!$orderId) {
+    jsonResponse(["error" => "id order wajib dikirim"], 400);
+}
+
+/* DELETE ORDER */
+$stmt = $pdo->prepare("DELETE FROM orders WHERE id = ?");
+$stmt->execute([$orderId]);
+
+if ($stmt->rowCount() === 0) {
+    jsonResponse(["error" => "Pesanan tidak ditemukan"], 404);
+}
+
+jsonResponse(["message" => "Pesanan berhasil dihapus"]);

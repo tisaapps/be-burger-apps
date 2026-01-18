@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "Burger Apps API",
+    "description": "Postman Collection for Burger Apps Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"User Test\",\n  \"email\": \"user@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/api/auth/register.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "auth", "register.php"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"andi@gmail.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/api/auth/login.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "auth", "login.php"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/api/user/profile.php?user_id=2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "user", "profile.php"],
+              "query": [
+                { "key": "user_id", "value": "2" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 2,\n  \"delivery_address\": \"Jl. Merdeka No.10\",\n  \"notes\": \"Tanpa bawang\",\n  \"total_price\": 75000\n}"
+            },
+            "url": {
+              "raw": "http://localhost/api/order/create.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "order", "create.php"]
+            }
+          }
+        },
+        {
+          "name": "Get Orders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/api/order/list.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "order", "list.php"]
+            }
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": 1,\n  \"status\": \"delivered\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/api/order/update_status.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "order", "update_status.php"]
+            }
+          }
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost/api/order/delete.php?id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "order", "delete.php"],
+              "query": [
+                { "key": "id", "value": "1" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Menu",
+      "item": [
+        {
+          "name": "Get Menu",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost/api/menu/list.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "menu", "list.php"]
+            }
+          }
+        },
+        {
+          "name": "Add Menu",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Spicy Burger\",\n  \"description\": \"Burger pedas level 5\",\n  \"price\": 42000,\n  \"image_url\": \"https://img.burgerapp.com/spicy.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost/api/menu/create.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "menu", "create.php"]
+            }
+          }
+        },
+        {
+          "name": "Update Menu",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"name\": \"Classic Beef Burger\",\n  \"description\": \"Updated description\",\n  \"price\": 38000\n}"
+            },
+            "url": {
+              "raw": "http://localhost/api/menu/update.php",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "menu", "update.php"]
+            }
+          }
+        },
+        {
+          "name": "Delete Menu",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost/api/menu/delete.php?id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "path": ["api", "menu", "delete.php"],
+              "query": [
+                { "key": "id", "value": "1" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

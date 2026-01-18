@@ -1,15 +1,27 @@
 <?php
-include "../../config/database.php";
+require __DIR__ . "/../../config/database.php";
+require __DIR__ . "/../../utils/response.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$user_id = $data['user_id'];
-$items = json_encode($data['items']);
-$total = $data['total_price'];
-$address = $data['delivery_address'];
-$notes = $data['notes'] ?? null;
+if (
+    !isset($data['user_id']) ||
+    !isset($data['delivery_address']) ||
+    !isset($data['total_price'])
+) {
+    jsonResponse(["error" => "Data tidak lengkap"], 400);
+}
 
-$conn->query("INSERT INTO orders (user_id,items,total_price,delivery_address,notes)
-VALUES ('$user_id','$items','$total','$address','$notes')");
+$stmt = $pdo->prepare("
+    INSERT INTO orders (user_id, delivery_address, notes, total_price)
+    VALUES (?, ?, ?, ?)
+");
 
-echo json_encode(["status"=>true,"message"=>"Order created"]);
+$stmt->execute([
+    $data['user_id'],
+    $data['delivery_address'],
+    $data['notes'] ?? null,
+    $data['total_price']
+]);
+
+jsonResponse(["message" => "Pesanan dibuat"]);
